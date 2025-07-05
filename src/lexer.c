@@ -36,41 +36,41 @@
 // Sim, eu poderia ter usado algo como lex, yacc, bla, bla, bla. Mas se funciona bem, funciona bem.
 // Apesar disso, estou pensando em usar re2c no futuro.
 static const char* token_patterns[] = {
-    // Instruções
-    "^LOAD$",
-    "^STOR$",
+	// Instruções
+	"^LOAD$",
+	"^STOR$",
 	"^STOR\\+$",
-    "^JUMP$",
-    "^JUMP\\+$",
-    "^ADD$",
-    "^SUB$",
-    "^MUL$",
-    "^DIV$",
-    "^LSH$",
-    "^RSH$",
-    // Registradores
-    "^MQ$",
-    // Parâmetros de instruçōes
-    "^0:19$",
-    "^20:39$",
-    "^8:19$",
-    "^28:39$",
-    // Palavras-chave (dots escaped)
-    "^\\.org$",
-    "^\\.word$",
-    "^\\.wfill$",
-    "^\\.set$",
+	"^JUMP$",
+	"^JUMP\\+$",
+	"^ADD$",
+	"^SUB$",
+	"^MUL$",
+	"^DIV$",
+	"^LSH$",
+	"^RSH$",
+	// Registradores
+	"^MQ$",
+	// Parâmetros de instruçōes
+	"^0:19$",
+	"^20:39$",
+	"^8:19$",
+	"^28:39$",
+	// Palavras-chave (dots escaped)
+	"^\\.org$",
+	"^\\.word$",
+	"^\\.wfill$",
+	"^\\.set$",
 	// "^\\.align$",
-    // Números
-    "^([0-9]+)$",          // Número decimal
-    "^0[xX]([0-9a-fA-F]+)$", // Número hexadecimal
-    // "Labels"
-    "^([a-zA-Z_][a-zA-Z0-9_]*)\\:$", // Declaração de uma label
-    "^([a-zA-Z_][a-zA-Z0-9_]*)$",      // Uso de uma label
-    // Números e labels negativos e absolutos. O valor pego da regex deve ser passado
-    // novamente por `determine_token`. 
+	// Números
+	"^([0-9]+)$",          // Número decimal
+	"^0[xX]([0-9a-fA-F]+)$", // Número hexadecimal
+	// "Labels"
+	"^([a-zA-Z_][a-zA-Z0-9_]*)\\:$", // Declaração de uma label
+	"^([a-zA-Z_][a-zA-Z0-9_]*)$",      // Uso de uma label
+	// Números e labels negativos e absolutos. O valor pego da regex deve ser passado
+	// novamente por `determine_token`. 
 	"^\\|(.*)\\|$", // Absoluto
-    "^-(.*)$" // Negativo
+	"^-(.*)$" // Negativo
 };
 
 static regex_t token_regex[ARRAY_SIZE(token_patterns)];
@@ -121,45 +121,45 @@ struct lexer_token determine_token(const char* word, unsigned int line) {
 }
 
 struct lexer_tokens_list lexer_tokens_list_init(void) {
-    struct lexer_tokens_list list;
+	struct lexer_tokens_list list;
 
 	list.data = NULL;
-    list.size = 0;
-    list.capacity = 0;
+	list.size = 0;
+	list.capacity = 0;
 
 	return list;
 }
 
 void lexer_tokens_list_add(struct lexer_tokens_list* list, struct lexer_token tok) {
-    if (list->size >= list->capacity) {
-        size_t new_capacity = list->capacity == 0 ? 4 : list->capacity * 2;
-        struct lexer_token* new_data = realloc(list->data, new_capacity * sizeof(struct lexer_token));
-        if (!new_data) {
-            perror("realloc");
-            exit(EXIT_FAILURE);
-        }
-        list->data = new_data;
-        list->capacity = new_capacity;
-    }
+	if (list->size >= list->capacity) {
+		size_t new_capacity = list->capacity == 0 ? 4 : list->capacity * 2;
+		struct lexer_token* new_data = realloc(list->data, new_capacity * sizeof(struct lexer_token));
+		if (!new_data) {
+			perror("realloc");
+			exit(EXIT_FAILURE);
+		}
+		list->data = new_data;
+		list->capacity = new_capacity;
+	}
 
-    list->data[list->size++] = tok;
+	list->data[list->size++] = tok;
 }
 
 void lexer_tokens_list_free(struct lexer_tokens_list* list) {
-    if (!list) return;
+	if (!list) return;
 
-    // Free each string inside the token
-    for (size_t i = 0; i < list->size; ++i) {
-        free(list->data[i].string);
-    }
+	// Free each string inside the token
+	for (size_t i = 0; i < list->size; ++i) {
+		free(list->data[i].string);
+	}
 
-    // Free the array of tokens
-    free(list->data);
+	// Free the array of tokens
+	free(list->data);
 
-    // Reset the list structure
-    list->data = NULL;
-    list->size = 0;
-    list->capacity = 0;
+	// Reset the list structure
+	list->data = NULL;
+	list->size = 0;
+	list->capacity = 0;
 }
 
 struct lexer_tokens_list lexer_lex(FILE* fptr, bool* error) {
