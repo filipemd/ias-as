@@ -39,13 +39,13 @@ static const char* token_patterns[] = {
 	// Instruções
 	"^LOAD$",
 	"^STOR$",
-	"^STOR\\+$",
 	"^JUMP$",
 	"^JUMP\\+$",
 	"^ADD$",
 	"^SUB$",
 	"^MUL$",
 	"^DIV$",
+	"^HALT$",
 	"^LSH$",
 	"^RSH$",
 	// Registradores

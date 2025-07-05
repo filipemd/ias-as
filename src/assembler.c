@@ -387,6 +387,12 @@ static struct assembler_halfword get_instruction(struct lexer_tokens_list* token
 		result.value = get_value_from_label_or_number(tokens->data[i], error);
 
 		break;
+	case INSTRUCTION_HALT:
+		// Pula para um endereço que não existe		
+		result.opcode = 0x0D;
+		result.value = 0xFFF;
+
+		break;
 	case INSTRUCTION_LSH:
 		result.opcode = 0x14;
 		break;

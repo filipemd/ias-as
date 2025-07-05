@@ -49,6 +49,8 @@ RSH
 label:
     LOAD bar
 
+HALT
+
 foo:
     .word 0x32
 bar:
