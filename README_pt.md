@@ -2,6 +2,8 @@
 
 Esse é um _assembler_ para o IAS que eu criei para [este](https://www.ic.unicamp.br/~edson/disciplinas/mc404/2017-2s/abef/IAS-sim/) simulador.
 
+Caso queira saber as instruções da máquina, veja [este](https://www.ic.unicamp.br/~edson/disciplinas/mc404/2017-2s/abef/) PDF. E caso queira saber mais sobre a máquina em si, tem a [página da Wikipedia](https://pt.wikipedia.org/wiki/Computador_IAS).
+
 Ele foi inspirado [neste](https://www.ic.unicamp.br/~edson/disciplinas/mc404/2017-2s/abef/IAS-Assembler/assembler.html) _assembler_, mas com essas diferenças:
 
 - **Sintaxe diferente**

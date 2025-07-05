@@ -2,6 +2,8 @@
 
 This is an assembler for the IAS that I created for [this](https://www.ic.unicamp.br/~edson/disciplinas/mc404/2017-2s/abef/IAS-sim/) simulator.
 
+If you want to know the machine's instructions, see [this](https://www.ic.unicamp.br/~edson/disciplinas/mc404/2017-2s/abef/) PDF (it is in Portuguese though). And if you want to learn more about the machine itself, there is the [Wikipedia page](https://en.wikipedia.org/wiki/IAS_machine).
+
 It was inspired by [this](https://www.ic.unicamp.br/~edson/disciplinas/mc404/2017-2s/abef/IAS-Assembler/assembler.html) assembler, but with the following differences:
 
 - **Different Syntax**
