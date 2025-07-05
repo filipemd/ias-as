@@ -36,4 +36,14 @@ No _assembler_ original, as instruções `STOR M(foo, 8:19)` e `STOR M(foo, 28:3
 
 ## Compilando
 
-Os únicos requisitos são um compilador C com compatibilidade com o ANSI C 99, GNU Makefile e um sistema que suporte POSIX (ou pelo menos a biblioteca de Regex dele) -- ou seja: Windows não é suportado sem algo como o Cygwin ou MSYS2.
+~~Os únicos requisitos são um compilador C com compatibilidade com o ANSI C 99, GNU Makefile e um sistema que suporte POSIX (ou pelo menos a biblioteca de Regex dele) -- ou seja: Windows não é suportado sem algo como o Cygwin ou MSYS2.~~
+
+Como o _assembler_ deixou de usar a biblioteca de Regex do POSIX e passou a usar o re2c, os únicos requisitos agora são:
+
+- Um compilador C compatível com o ANSI C 99;
+- GNU Makefile;
+- [re2c](https://re2c.org/).
+
+## Licença
+
+O programa é licenciado sob a GPL versão 3 ou posterior, e também inclui código originalmente licenciado sob a licença BSD de três cláusulas (`sc_map.h` e `sc_map.c`). Os códigos em `examples/` são licenciados sob a licença BSD de zero cláusulas, portanto, você pode usá-los mesmo sem dar crédito.

@@ -36,7 +36,13 @@ In the original assembler, the instructions `STOR M(foo, 8:19)` and `STOR M(foo,
 
 ## Compiling
 
-The only requirements are a C compiler compatible with ANSI C 99, a GNU Makefile, and a system that supports POSIX (or at least its Regex library)—that is, Windows is not supported without something like Cygwin or MSYS2.
+~~The only requirements are a C compiler compatible with ANSI C 99, a GNU Makefile, and a system that supports POSIX (or at least its Regex library)—that is, Windows is not supported without something like Cygwin or MSYS2.~~
+
+As the assembler stopped using the POSIX Regex library and started using re2c, the only requirements now are:
+
+- A C compiler compatible with ANSI C 99;
+- GNU Makefile;
+- [re2c](https://re2c.org/).
 
 ## License
 

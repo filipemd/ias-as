@@ -23,7 +23,7 @@
 #include "lexer.h"
 #include "assembler.h"
 
-static const char* version="0.1.0";
+static const char* version="0.2.0";
 
 static void show_version(const char* argv0) {
 	printf(
@@ -76,8 +76,6 @@ int main(int argc, char* argv[]) {
 	}
 
 	bool error=false;
-	
-	lexer_init();
 
 	struct lexer_tokens_list tokens=lexer_lex(input_file, &error);	
 	
@@ -101,8 +99,6 @@ int main(int argc, char* argv[]) {
 	assembler_end();
 
 	lexer_tokens_list_free(&tokens);
-
-	lexer_end();
 
 	return error;
 }

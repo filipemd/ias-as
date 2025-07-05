@@ -75,8 +75,6 @@ struct lexer_tokens_list lexer_tokens_list_init(void);
 void lexer_tokens_list_add(struct lexer_tokens_list* list, struct lexer_token tok);
 void lexer_tokens_list_free(struct lexer_tokens_list* list);
 
-void lexer_init(void);
 struct lexer_tokens_list lexer_lex(FILE* fptr, bool* error);
-void lexer_end(void);
 
 #endif

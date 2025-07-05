@@ -1,50 +1,39 @@
-#   Copyright (C) 2025  filipemd
-#
-#   This file is part of IAS Assembler.
-#
-#   IAS Assembler is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
-#
-#   IAS Assembler is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with IAS Assembler.  If not, see <http://www.gnu.org/licenses/>.
-
-# Compiler to use
+# Compiler and flags
 CC = cc
+CFLAGS = -Wall -Wpedantic -Wextra -O2 -std=c99 -g
 
-# Compiler flags (e.g., -Wall, -Werror, -g)
-CFLAGS = -Wall -Wpedantic -Wextra -O2 -std=gnu99 -g
+# re2c input/output
+RE2C = re2c
+RE2C_FLAGS = -W -b
+RE2C_SOURCE = src/determine_token.re2c
+RE2C_TARGET = $(RE2C_SOURCE).c
 
-# Source file(s)
-SRCS = $(wildcard src/*.c)
-
-# Object file(s)
+# Sources and objects
+SRCS = $(filter-out $(RE2C_TARGET), $(wildcard src/*.c)) $(RE2C_TARGET)
 OBJS = $(patsubst src/%.c, build/%.o, $(SRCS))
 
-# Name of the executable
+# Target binary
 TARGET = build/ias-as
 
-# Default target
+# Default
 all: $(TARGET)
 
-# Rule to create the executable
+# Executable
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
 
-# Rule to create object files from source files
+# re2c compilation
+$(RE2C_TARGET): $(RE2C_SOURCE)
+	$(RE2C) $(RE2C_FLAGS) -o $@ $<
+
+# Object compilation
 build/%.o: src/%.c | build
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Rule to create the build directory if it doesn't exist
+# Build dir
 build:
 	mkdir -p build
 
-# Clean rule to remove object files and the executable
+# Clean
 clean:
-	rm -rf build
+	rm -rf build $(RE2C_TARGET)
