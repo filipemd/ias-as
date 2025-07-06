@@ -26,6 +26,28 @@ STOR M(bar, 8:19)
 
 Isso foi menos uma questão de ser uma sintaxe melhor, mas sim porque é muito mais fácil criar um _lexer_ desse jeito -- é só separar os _tokens_ com espaço e vírgula.
 
+- **Parâmetro nas instruções STOR e JUMP opcionais**
+
+Na máquina IAS, duas instruções ocupam o mesmo endereço da memória, então se usaria:
+
+```
+JUMP foo, 0:19
+```
+
+Para executar a instrução no lado direito no endereço, e:
+
+```
+JUMP foo, 20:39
+```
+
+Para executar a instrução no lado esquerdo do endereço. Entretanto, nesse _assembler_, isso é opcional, você pode escrever só:
+
+```
+JUMP foo
+```
+
+Algo parecido também acontece com a instrução STOR. Entretanto, STOR sem nenhum parâmetro modifica o endereço todo. Então, pra isso, se usa a instrução STOR+.
+
 - **Inexistência da palavra-chave `.align`**
 
 No outro assembler, a palavra-chave `.align` serve para declarar na memória palavras com as palavras-chave `.word` ou `.wfill`, mas a única coisa que fazia era dar um erro se você não a colocasse, não fazendo diferença o número colocado depois dela. Então decidi tirá-la.

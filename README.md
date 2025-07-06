@@ -26,6 +26,28 @@ STOR M(bar, 8:19)
 
 This change was less about having a better syntax and more about making it much easier to create a lexer this way—it's just a matter of separating the tokens with spaces and commas.
 
+* **Optional parameter in STOR and JUMP instructions**
+
+In the IAS machine, two instructions share the same memory address, so you would use:
+
+```
+JUMP foo, 0:19
+```
+
+To execute the instruction on the right-hand side of the address, and:
+
+```
+JUMP foo, 20:39
+```
+
+To execute the instruction on the left-hand side. However, in this *assembler*, that parameter is optional, so you can simply write:
+
+```
+JUMP foo
+```
+
+A similar rule applies to the STOR instruction. However, STOR without any parameter modifies the entire address. To handle this, the `STOR+` instruction is used.
+
 - **Absence of the `.align` Keyword**
 
 In the other assembler, the `.align` keyword was used to declare words in memory with the `.word` or `.wfill` keywords, but it only generated an error if you didn't include it, without making any difference to the number placed after it. So I decided to remove it.
