@@ -323,6 +323,18 @@ static struct assembler_halfword get_instruction(struct lexer_tokens_list* token
 			result.opcode=0x21;
 		}
 		break;
+	case INSTRUCTION_STOR_PLUS:
+		i++;		
+		uint16_t label_logical_address = get_label_value(tokens->data[i].string, tokens->data[i].line, error);
+		result.value = get_actual_address(label_logical_address);
+
+		if (label_logical_address % 2 == 0) {
+			result.opcode=0x12;
+		} else {
+			result.opcode=0x13;
+		}
+
+		break;
 	case INSTRUCTION_JUMP:
 		i++;
 		result.value=get_value_from_label_or_number(tokens->data[i], error);
@@ -332,6 +344,13 @@ static struct assembler_halfword get_instruction(struct lexer_tokens_list* token
 			result.opcode=0x0D;
 		} else if (tokens->data[i].type == PARAM_20_TO_39) {
 			result.opcode=0x0E;
+		} else if (tokens->data[i].type==LABEL_USAGE) {
+			// Se a label estiver na direita, é 0x0D, senão, é 0x0E
+			if (get_label_value(tokens->data[i].string, tokens->data[i].line, error)%2  == 0) {
+				result.opcode=0x0D;
+			} else {
+				result.opcode=0x0E;
+			}
 		} else {
 			fprintf(stderr, "ERROR in line %d: instruction JUMP should be followed by a number or name and 0:19 or 20:39.\n", tokens->data[i].line);
 			*error=true;
@@ -341,11 +360,19 @@ static struct assembler_halfword get_instruction(struct lexer_tokens_list* token
 		i++;
 		result.value=get_value_from_label_or_number(tokens->data[i], error);
 
-		i++;
-		if (tokens->data[i].type == PARAM_0_TO_19) {
+		if (tokens->data[i+1].type == PARAM_0_TO_19) {
+			i++;
 			result.opcode=0x0F;
-		} else if (tokens->data[i].type == PARAM_20_TO_39) {
+		} else if (tokens->data[i+1].type == PARAM_20_TO_39) {
+			i++;
 			result.opcode=0x10;
+		} else if (tokens->data[i].type==LABEL_USAGE) {
+			// Se a label estiver na direita, é 0x0F, senão, é 0x10
+			if (get_label_value(tokens->data[i].string, tokens->data[i].line, error)%2  == 0) {
+				result.opcode=0x0F;
+			} else {
+				result.opcode=0x10;
+			}
 		} else {
 			fprintf(stderr, "ERROR in line %d: instruction JUMP+ should be followed by a number or name and 0:19 or 20:39.\n", tokens->data[i].line);
 			*error=true;

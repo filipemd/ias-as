@@ -52,13 +52,14 @@ struct lexer_token determine_token(const char* word, unsigned int line) {
 
         "LOAD"           { return (struct lexer_token){line, INSTRUCTION_LOAD, NULL}; }
         "STOR"           { return (struct lexer_token){line, INSTRUCTION_STOR, NULL}; }
+        "STOR+"          { return (struct lexer_token){line, INSTRUCTION_STOR_PLUS, NULL}; }
         "JUMP+"          { return (struct lexer_token){line, INSTRUCTION_JUMP_PLUS, NULL}; }
         "JUMP"           { return (struct lexer_token){line, INSTRUCTION_JUMP, NULL}; }
         "ADD"            { return (struct lexer_token){line, INSTRUCTION_ADD, NULL}; }
         "SUB"            { return (struct lexer_token){line, INSTRUCTION_SUB, NULL}; }
         "MUL"            { return (struct lexer_token){line, INSTRUCTION_MUL, NULL}; }
         "DIV"            { return (struct lexer_token){line, INSTRUCTION_DIV, NULL}; }
-        "HALT"            { return (struct lexer_token){line, INSTRUCTION_HALT, NULL}; }
+        "HALT"           { return (struct lexer_token){line, INSTRUCTION_HALT, NULL}; }
         "LSH"            { return (struct lexer_token){line, INSTRUCTION_LSH, NULL}; }
         "RSH"            { return (struct lexer_token){line, INSTRUCTION_RSH, NULL}; }
 
