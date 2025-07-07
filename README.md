@@ -66,6 +66,24 @@ As the assembler stopped using the POSIX Regex library and started using re2c, t
 - GNU Makefile;
 - [re2c](https://re2c.org/).
 
+### Compiling for Windows on Linux
+
+Install MinGW using your GNU/Linux distro's package manager and run:
+
+```
+make CC=x86_64-w64-mingw32-gcc
+```
+
+The executable will be generated at `build/ias-as.exe`. To run it, use [Wine](https://www.winehq.org/).
+
+The test script also supports Wine. To test the Windows build, run `./run_tests.sh windows`.
+
+### Compiling on Windows
+
+The recommended way is using [MSYS2](https://www.msys2.org/), which lets you install the C compiler and re2c and compile just like on Linux.
+
+However, it's also possible to compile on Windows without it. You’ll need MinGW and re2c in your PATH, and run `mingw32-make CC=gcc`. Note that the Makefile may not work correctly due to differences between the POSIX shell and Windows shells (CMD or PowerShell).
+
 ## License
 
 The program is licensed under the GPL version 3 or later, and it also includes code originally licensed under the BSD three-clause license (`sc_map.h` and `sc_map.c`). The codes in `examples/` are licensed under the zero-clause BSD license, so you can use them even without giving credit.

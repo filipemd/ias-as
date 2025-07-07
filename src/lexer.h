@@ -20,7 +20,6 @@
 #define PARSER_H
 
 #include <stdio.h>
-#include <regex.h>
 #include <stdbool.h>
 
 struct lexer_token {

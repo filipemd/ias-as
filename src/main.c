@@ -23,7 +23,7 @@
 #include "lexer.h"
 #include "assembler.h"
 
-static const char* version="0.3.0";
+static const char* version="0.3.1";
 
 static void show_version(const char* argv0) {
 	printf(
@@ -68,7 +68,9 @@ int main(int argc, char* argv[]) {
 	if (argc == 2) {
 		output_file = stdout;
 	} else {
-		output_file = fopen(argv[2], "w");
+		// No Windows, é \r\n, no Linux e MacOS, é \n. Então tem que estar unificado para não dar problema
+		// nos testes
+		output_file = fopen(argv[2], "wb");
 		if (output_file == NULL) {
 			fprintf(stderr, "Error loading file: %s\n", argv[2]);
 			return 1;
