@@ -49,7 +49,7 @@
 #ifndef SC_MAP_H
 #define SC_MAP_H
 
-#include <memory.h>
+// #include <memory.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>

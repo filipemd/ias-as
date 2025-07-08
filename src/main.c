@@ -23,7 +23,7 @@
 #include "lexer.h"
 #include "assembler.h"
 
-static const char* version="0.3.1";
+static const char* version="0.3.2";
 
 static void show_version(const char* argv0) {
 	printf(

@@ -103,5 +103,28 @@ struct lexer_tokens_list lexer_lex(FILE* fptr, bool* error) {
 		line++;
 	}
 
+	/*
+		Gambiarra extremamente funcional para corrigir quando o último token é uma instrução ou uma
+		palavra-chave.
+
+		Em `assembler.c` os argumentos desses tokens são pegos com tokens[i+1] ou tokens[i+2], o que
+		resulta em comportamento indefinido, já que esses valores podem não estar alocados.
+
+		Simplesmente adicionar dois tokens vazios no fim da lista de tokens resolve bem o problema,
+		além de deixar as mensagens de erro fazerem mais sentido.
+
+		MAS, ATENÇÃO, SE, EM ALGUM MOMENTO, ALGUM TOKEN PRECISAR DE MAIS QUE DOIS ARGUMENTOS, MODIFIQUE
+		ESTE CÓDIGO
+	*/
+
+	const struct lexer_token temp_token = {
+		.line=line-1,
+		.string=NULL,
+		.type=TOKEN_NONE
+	};
+
+	lexer_tokens_list_add(&result, temp_token);
+	lexer_tokens_list_add(&result, temp_token);
+
 	return result;
 }

@@ -530,7 +530,16 @@ static void assemble(FILE* output, struct lexer_tokens_list* tokens, bool* error
 		case KEYWORD_SET:
 			i+=2;
 			break;
+		/*
+			LABEL_DECLARATION não faz nada em `assemble`, apenas em `pass1`.
+
+			TOKEN_NONE tanto aparece nos dos últimos itens do array de tokens quanto pode
+			aparecer por erro de sintaxe.
+		*/
 		case LABEL_DECLARATION:
+			continue;
+			break;
+		case TOKEN_NONE:
 			continue;
 			break;
 		default:
